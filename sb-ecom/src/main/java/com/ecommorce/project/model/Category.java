@@ -22,17 +22,22 @@ public class Category {
     @Column
     @NotBlank(message = "CATEGORY NOT BLANK")
     @Size(min = 5, message = "Category name must contain at least 5 characters")
-    private String CategoryName;
+    private String categoryName;
 
-    public void setId(Long categoryId) {
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
-        CategoryName = categoryName;
+        this.categoryName = categoryName;
     }
 }

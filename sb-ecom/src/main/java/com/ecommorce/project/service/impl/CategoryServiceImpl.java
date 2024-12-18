@@ -1,5 +1,6 @@
 package com.ecommorce.project.service.impl;
 
+import com.ecommorce.project.exceptions.APIException;
 import com.ecommorce.project.exceptions.ResourceNotFoundException;
 import com.ecommorce.project.model.Category;
 import com.ecommorce.project.repositories.CategoryRepository;
@@ -26,13 +27,20 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
 
-        return categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty()){
+            throw new APIException("No category created till now");
+        }
+        return categories;
     }
 
     @Override
     public void createCategory(Category category) {
 
         Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+        if (savedCategory != null){
+            throw new APIException("Category with the name " + category.getCategoryName() + " already exists !!!");
+        }
 
         categoryRepository.save(category);
     }
