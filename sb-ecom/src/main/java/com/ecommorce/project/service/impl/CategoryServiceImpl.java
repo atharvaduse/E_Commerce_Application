@@ -32,6 +32,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void createCategory(Category category) {
 
+        Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+
         categoryRepository.save(category);
     }
 
