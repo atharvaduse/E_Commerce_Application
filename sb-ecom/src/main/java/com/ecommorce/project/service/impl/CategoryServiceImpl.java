@@ -1,5 +1,6 @@
 package com.ecommorce.project.service.impl;
 
+import com.ecommorce.project.exceptions.ResourceNotFoundException;
 import com.ecommorce.project.model.Category;
 import com.ecommorce.project.repositories.CategoryRepository;
 import com.ecommorce.project.service.CategoryService;
@@ -24,6 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAllCategories() {
+
         return categoryRepository.findAll();
     }
 
@@ -37,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     public String deleteCategory(Long categoryId) {
 
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND,"Resurce  not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category","categoryId",categoryId));
 
 
         if(category == null) {
@@ -53,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category updateCategory(Category category, Long categoryId) {
 
         Category savedCategory= categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource  not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category","categoryId",categoryId));
 
         category.setCategoryId(savedCategory.getCategoryId());
 
