@@ -2,14 +2,16 @@ package com.ecommorce.project.service;
 
 
 import com.ecommorce.project.model.Category;
+import com.ecommorce.project.payload.CategoryDTO;
+import com.ecommorce.project.payload.CategoryResponse;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAllCategories();
+    CategoryResponse getAllCategories();
 
-    void createCategory(Category category);
+    CategoryDTO createCategory(CategoryDTO categoryDTO);
 
     public String deleteCategory(Long categoryId);
 

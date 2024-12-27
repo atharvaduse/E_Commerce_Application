@@ -1,6 +1,8 @@
 package com.ecommorce.project.controller;
 
 import com.ecommorce.project.model.Category;
+import com.ecommorce.project.payload.CategoryDTO;
+import com.ecommorce.project.payload.CategoryResponse;
 import com.ecommorce.project.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +21,17 @@ public class CategoryController {
 private CategoryService categoryService;
 
     @GetMapping("/api/public/categories")
-    public ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> categories = categoryService.getAllCategories();
-        return new ResponseEntity<>(categories,HttpStatus.OK);
+    public ResponseEntity<CategoryResponse> getAllCategories() {
+   CategoryResponse categoryResponse = categoryService.getAllCategories();
+        return new ResponseEntity<>(categoryResponse,HttpStatus.OK);
     }
 
 
     @PostMapping("/api/public/categories")
-    public ResponseEntity<String> createCategory(@Valid   @RequestBody Category category){
+    public ResponseEntity<CategoryDTO> createCategory(@Valid   @RequestBody CategoryDTO categoryDTO){
 
-      categoryService.createCategory(category);
-        return new ResponseEntity<>("Category added succesfully",HttpStatus.OK) ;
+      CategoryDTO savedCategoryDTO =categoryService.createCategory(categoryDTO);
+        return new ResponseEntity<>(savedCategoryDTO,HttpStatus.OK) ;
     }
 
     @DeleteMapping("/api/admin/categories/{categoryId}")
