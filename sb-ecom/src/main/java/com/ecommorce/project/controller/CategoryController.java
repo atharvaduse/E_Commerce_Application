@@ -1,5 +1,6 @@
 package com.ecommorce.project.controller;
 
+import com.ecommorce.project.config.AppConstants;
 import com.ecommorce.project.model.Category;
 import com.ecommorce.project.payload.CategoryDTO;
 import com.ecommorce.project.payload.CategoryResponse;
@@ -22,8 +23,11 @@ public class CategoryController {
 private CategoryService categoryService;
 
     @GetMapping("/public/categories")
-    public ResponseEntity<CategoryResponse> getAllCategories() {
-   CategoryResponse categoryResponse = categoryService.getAllCategories();
+    public ResponseEntity<CategoryResponse> getAllCategories(
+            @RequestParam(name = "pageNumber",defaultValue = AppConstants.PAGE_NUMBER) Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = AppConstants.PAGE_SIZE) Integer pageSize
+    ) {
+   CategoryResponse categoryResponse = categoryService.getAllCategories(pageNumber,pageSize);
         return new ResponseEntity<>(categoryResponse,HttpStatus.OK);
     }
 

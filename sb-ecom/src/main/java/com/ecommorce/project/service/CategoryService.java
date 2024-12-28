@@ -1,15 +1,12 @@
 package com.ecommorce.project.service;
 
 
-import com.ecommorce.project.model.Category;
 import com.ecommorce.project.payload.CategoryDTO;
 import com.ecommorce.project.payload.CategoryResponse;
 
-import java.util.List;
-
 public interface CategoryService {
 
-    CategoryResponse getAllCategories();
+    CategoryResponse getAllCategories(Integer pageNumber,Integer pageSize);
 
     CategoryDTO createCategory(CategoryDTO categoryDTO);
 
