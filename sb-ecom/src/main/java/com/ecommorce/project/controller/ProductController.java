@@ -1,6 +1,6 @@
 package com.ecommorce.project.controller;
 
-import com.ecommorce.project.model.Product;
+
 import com.ecommorce.project.payload.ProductDTO;
 import com.ecommorce.project.payload.ProductResponse;
 import com.ecommorce.project.service.ProductService;
@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,11 +23,11 @@ public class ProductController {
     ModelMapper modelMapper;
 
     @PostMapping("/admin/categories/{categoryId}/product")
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product, @PathVariable Long categoryId){
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Long categoryId){
 
-       ProductDTO productDTO =  productService.addProduct(categoryId,product);
+       ProductDTO savedProductDTO =  productService.addProduct(categoryId,productDTO);
 
-        return new ResponseEntity<>(productDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedProductDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/public/products")
@@ -58,9 +57,9 @@ public class ProductController {
 
 
     @PutMapping("/admin/products/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product, @PathVariable Long productId){
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO, @PathVariable Long productId){
 
-      ProductDTO updatedProductDTO =  productService.updateProduct(productId,product);
+      ProductDTO updatedProductDTO =  productService.updateProduct(productId,productDTO);
 
        return  new ResponseEntity<>(updatedProductDTO,HttpStatus.OK);
     }
