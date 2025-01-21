@@ -4,8 +4,10 @@ package com.ecommorce.project.controller;
 import com.ecommorce.project.payload.ProductDTO;
 import com.ecommorce.project.payload.ProductResponse;
 import com.ecommorce.project.service.ProductService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,7 @@ public class ProductController {
     ModelMapper modelMapper;
 
     @PostMapping("/admin/categories/{categoryId}/product")
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO, @PathVariable Long categoryId){
+    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO, @PathVariable Long categoryId){
 
        ProductDTO savedProductDTO =  productService.addProduct(categoryId,productDTO);
 
@@ -59,7 +61,7 @@ public class ProductController {
 
 
     @PutMapping("/admin/products/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO, @PathVariable Long productId){
+    public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO, @PathVariable Long productId){
 
       ProductDTO updatedProductDTO =  productService.updateProduct(productId,productDTO);
 
